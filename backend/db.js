@@ -14,7 +14,10 @@ if (process.env.NODE_ENV === "production") {
   });
 } else {
   db = new Client({
-    connectionString: getDatabaseUri()
+    user: process.env.DB_USER,
+    host: 'localhost',
+    database: getDatabaseUri(),
+    password: process.env.DB_PASSWORD,
   });
 }
 
