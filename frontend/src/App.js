@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import './App.css';
 import AllRoutes from './AllRoutes'
 import MainNav from './MainNav';
-import userContext from './userContext';
+import AuthProvider from './AuthProvider';
 
 function App() {
-  const [userToken, setUserToken] = useState('')
+
 
   return (
     <div className="App">
-      <userContext.Provider value={{ userToken, setUserToken }}>
+      <AuthProvider>
         <MainNav />
         <AllRoutes />
-      </userContext.Provider>
+      </AuthProvider>
     </div>
   );
 }

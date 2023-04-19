@@ -27,6 +27,26 @@ class JoblyApi {
         const { data } = await axios.get(`${BASE_API_URL}/companies`)
         return data.companies;
     }
+    static async getCompany(handle) {
+        const { data } = await axios.get(`${BASE_API_URL}/companies/${handle}`)
+        return data.company;
+    }
+    static async apply(username, jobId, JWT) {
+        console.log(JWT)
+        const { data } = await axios.post(`${BASE_API_URL}/users/${username}/jobs/${jobId}`, {}, {
+            headers: {
+                Authorization: `Bearer ${JWT}`
+            }
+        })
+        return data.applied;
+    }
+    static async getUser(username, JWT) {
+        const { data } = await axios.get(`${BASE_API_URL}/users/${username}`, {
+            headers: {
+                Authorization: `Bearer ${JWT}`
+            }
+        })
+        return data.user;
+    }
 }
-
 export default JoblyApi;

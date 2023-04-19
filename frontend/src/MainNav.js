@@ -9,14 +9,14 @@ import {
     NavLink,
     NavbarToggler
 } from "reactstrap";
-import userContext from './userContext';
+import AuthContext from './AuthContext';
 
 
 
 
 //Nav Bar seen on all pages. 
 function MainNav() {
-    const { userToken } = useContext(userContext)
+    const { user } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
     return (
@@ -28,7 +28,7 @@ function MainNav() {
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ml-auto" navbar>
-                        {userToken ?
+                        {user.username ?
                             <>
                                 <NavItem>
                                     <NavLink href="/companies">Companies</NavLink>

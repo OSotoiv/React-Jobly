@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
+import React, { useState, useEffect, useContext } from 'react';
+import { Card, CardBody, CardTitle, CardSubtitle, CardLink } from 'reactstrap';
 import JoblyApi from './JoblyApi';
+
 
 const Companies = () => {
     const [companies, setcompanies] = useState([]);
@@ -15,9 +16,11 @@ const Companies = () => {
     return (
         <>
             {companies ? companies.map(company => {
-                return <Card>
+                return <Card key={company.handle}>
                     <CardBody>
-                        <CardTitle>{company.handle}</CardTitle>
+                        <CardLink href={`/companies/${company.handle}`}>
+                            <CardTitle>{company.handle}</CardTitle>
+                        </CardLink>
                         <CardSubtitle>{company.name}</CardSubtitle>
                         <p>Description: {company.description}</p>
                         <p>#Employees: {company.numEmployees}</p>

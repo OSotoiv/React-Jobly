@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardBody, CardTitle, CardSubtitle, CardColumns } from 'reactstrap';
+import React, { useState, useEffect, useContext } from 'react';
+import { Card, CardBody, CardTitle, CardSubtitle, CardColumns, CardLink } from 'reactstrap';
 import JoblyApi from './JoblyApi';
+import userContext from './AuthContext';
+// import { Link } from 'react';
 
 const Jobs = () => {
+    const { userToken } = useContext(userContext);
+
     const [jobs, setJobs] = useState([]);
     useEffect(() => {
         async function getJobs() {
@@ -16,9 +20,13 @@ const Jobs = () => {
         <>
             <CardColumns style={{ width: '30rem', marginLeft: '20%' }}>
                 {jobs ? jobs.map(job => {
-                    return <Card>
+                    return <Card key={job.id}>
                         <CardBody>
-                            <CardTitle>{job.title}</CardTitle>
+                            <CardTitle>
+                                <CardLink href={`jobs/${job.id}`}>
+                                    {job.title}
+                                </CardLink>
+                            </CardTitle>
                             <CardSubtitle>{job.companyName}</CardSubtitle>
                             <p>Salary: {job.salary}</p>
                             <p>Equity: {job.equity || 'N/A'}</p>
