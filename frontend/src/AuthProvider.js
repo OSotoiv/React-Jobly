@@ -3,10 +3,10 @@ import AuthContext from './AuthContext';
 
 function AuthProvider(props) {
     const [user, setUser] = useState({});
-    const [token, setToken] = useState({});
+    // const [token, setToken] = useState({});
 
     return (
-        <AuthContext.Provider value={{ user, setUser, token, setToken }}>
+        <AuthContext.Provider value={{ user, setUser }}>
             {props.children}
         </AuthContext.Provider>
     );

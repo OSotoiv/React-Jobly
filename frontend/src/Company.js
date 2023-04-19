@@ -1,23 +1,24 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Card, CardBody, CardTitle, CardSubtitle, Col, Row, CardText, Button } from 'reactstrap';
+import { Card, CardBody, CardTitle, Col, Row, CardText, Button } from 'reactstrap';
 import JoblyApi from './JoblyApi';
 import { useParams } from 'react-router-dom';
 import AuthContext from './AuthContext';
 
-const Company = () => {
+const Company = ({ user, setUser }) => {
     const [company, setcompany] = useState();
-    const { token, user, setUser } = useContext(AuthContext)
-
     const { handle } = useParams();
+
     useEffect(() => {
         async function getCompany() {
             const companyFromApi = await JoblyApi.getCompany(handle);
             setcompany(companyFromApi)
         }
         getCompany()
-    }, []);
+        return setcompany(null)
+    }, [handle]);
+
     const apply = async (jobId) => {
-        const id = await JoblyApi.apply(user.username, jobId, token);
+        const id = await JoblyApi.apply(user.username, jobId, user.token);
         setUser(oldCreds => {
             oldCreds.applications.push(id)
             return { ...oldCreds };

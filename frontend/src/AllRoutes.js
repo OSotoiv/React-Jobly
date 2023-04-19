@@ -8,17 +8,20 @@ import Jobs from './Jobs'
 import User from './User'
 import Company from './Company'
 
-const AllRoutes = () => {
+
+const AllRoutes = ({ user, setUser }) => {
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/companies" element={<Companies />} />
-            <Route path="/companies/:handle" element={<Company />} />
-            <Route path="/jobs" element={<Jobs />} />
-            <Route path="/jobs/:id" element={<Jobs />} />
-            <Route path="/user" element={<User />} />
+            <Route exact="true" path="/" Component={Home} />
+
+            <Route path="/register" element={<Register setUser={setUser} />} />
+            <Route path="/login" element={<Login setUser={setUser} />} />
+
+            <Route path="/companies" element={<Companies user={user} setUser={setUser} />} />
+            <Route path="/companies/:handle" element={<Company user={user} setUser={setUser} />} />
+            <Route path="/jobs" element={<Jobs user={user} setUser={setUser} />} />
+            <Route path="/jobs/:id" element={<Jobs user={user} setUser={setUser} />} />
+            <Route path="/user" element={<User user={user} setUser={setUser} />} />
         </Routes>
     )
 }

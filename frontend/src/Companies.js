@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Card, CardBody, CardTitle, CardSubtitle, CardLink } from 'reactstrap';
+import React, { useState, useEffect } from 'react';
+import { Card, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 import JoblyApi from './JoblyApi';
+import { NavLink } from 'react-router-dom';
 
 
-const Companies = () => {
+const Companies = ({ user, setUser }) => {
     const [companies, setcompanies] = useState([]);
     useEffect(() => {
         async function getCompanies() {
@@ -18,9 +19,9 @@ const Companies = () => {
             {companies ? companies.map(company => {
                 return <Card key={company.handle}>
                     <CardBody>
-                        <CardLink href={`/companies/${company.handle}`}>
+                        <NavLink to={`/companies/${company.handle}`}>
                             <CardTitle>{company.handle}</CardTitle>
-                        </CardLink>
+                        </NavLink>
                         <CardSubtitle>{company.name}</CardSubtitle>
                         <p>Description: {company.description}</p>
                         <p>#Employees: {company.numEmployees}</p>

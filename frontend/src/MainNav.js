@@ -1,22 +1,15 @@
-import React, { useState, useContext } from "react";
-// import {  } from "react-router-dom";
+import React, { useState } from "react";
 import {
     Navbar,
     Nav,
-    NavItem,
+    Button,
     NavbarBrand,
     Collapse,
-    NavLink,
     NavbarToggler
 } from "reactstrap";
-import AuthContext from './AuthContext';
-
-
-
-
-//Nav Bar seen on all pages. 
-function MainNav() {
-    const { user } = useContext(AuthContext)
+import { NavLink } from 'react-router-dom';
+function MainNav({ user }) {
+    // const { user } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
     return (
@@ -27,26 +20,26 @@ function MainNav() {
                 </NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
-                    <Nav className="ml-auto" navbar>
+                    <Nav fill className="ml-auto" navbar>
                         {user.username ?
                             <>
-                                <NavItem>
-                                    <NavLink href="/companies">Companies</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink href="/jobs">Jobs</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink href="/">User</NavLink>
-                                </NavItem>
+                                <Button color="light">
+                                    <NavLink className={"nav"} to="/companies">Companies</NavLink>
+                                </Button>
+                                <Button color="light">
+                                    <NavLink to="/jobs">Jobs</NavLink>
+                                </Button>
+                                <Button color="light">
+                                    <NavLink to="/">User</NavLink>
+                                </Button>
                             </> :
                             <>
-                                <NavItem>
-                                    <NavLink href="/register">Register</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink href="/login">Login</NavLink>
-                                </NavItem>
+                                <Button color="light">
+                                    <NavLink to="/register">Register</NavLink>
+                                </Button>
+                                <Button color="light">
+                                    <NavLink to="/login">Login</NavLink>
+                                </Button>
                             </>
                         }
                     </Nav>

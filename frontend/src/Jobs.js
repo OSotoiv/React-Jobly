@@ -1,12 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardTitle, CardSubtitle, CardColumns, CardLink } from 'reactstrap';
 import JoblyApi from './JoblyApi';
-import userContext from './AuthContext';
-// import { Link } from 'react';
+import { NavLink } from 'react-router-dom';
 
-const Jobs = () => {
-    const { userToken } = useContext(userContext);
-
+const Jobs = ({ user, setUser }) => {
     const [jobs, setJobs] = useState([]);
     useEffect(() => {
         async function getJobs() {
@@ -23,9 +20,9 @@ const Jobs = () => {
                     return <Card key={job.id}>
                         <CardBody>
                             <CardTitle>
-                                <CardLink href={`jobs/${job.id}`}>
+                                <NavLink to={`jobs/${job.id}`}>
                                     {job.title}
-                                </CardLink>
+                                </NavLink>
                             </CardTitle>
                             <CardSubtitle>{job.companyName}</CardSubtitle>
                             <p>Salary: {job.salary}</p>
