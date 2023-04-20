@@ -23,6 +23,10 @@ class JoblyApi {
         const { data } = await axios.get(`${BASE_API_URL}/jobs`)
         return data.jobs;
     }
+    static async getJob(id) {
+        const { data } = await axios.get(`${BASE_API_URL}/jobs/${id}`)
+        return data.job;
+    }
     static async getCompanies() {
         const { data } = await axios.get(`${BASE_API_URL}/companies`)
         return data.companies;
@@ -31,6 +35,9 @@ class JoblyApi {
         const { data } = await axios.get(`${BASE_API_URL}/companies/${handle}`)
         return data.company;
     }
+
+
+
     static async apply(username, jobId, JWT) {
         console.log(JWT)
         const { data } = await axios.post(`${BASE_API_URL}/users/${username}/jobs/${jobId}`, {}, {

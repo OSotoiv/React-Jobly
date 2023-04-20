@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import JoblyApi from './JoblyApi';
 import { Form, Row, Col, FormGroup, Label, Input, Button } from 'reactstrap';
-// import AuthContext from './AuthContext';
+import AuthContext from './AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 
-const Register = ({ setUser }) => {
+const Register = () => {
     const navigate = useNavigate();
+    const { setUser } = useContext(AuthContext);
     const [inputState, setInputState] = useState({});
     function handleInputChange(e) {
         const { name, value } = e.target;
@@ -17,7 +18,6 @@ const Register = ({ setUser }) => {
         const JWT = await JoblyApi.register(inputState);
         const user = await JoblyApi.getUser(inputState.username, JWT)
         setUser({ ...user, token: JWT });
-
         navigate('/');
     }
     return (

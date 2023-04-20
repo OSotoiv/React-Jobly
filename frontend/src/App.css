@@ -1,16 +1,6 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  background-color: #9b883427;
+  margin-bottom: 50px;
 }
 
 .App-header {
@@ -24,15 +14,21 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.company {
+  background-color: rgba(34, 108, 192, 0.658);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.main-container {
+  width: 80vw;
+  margin: 0 auto;
+  /* Center the container horizontally */
+}
+
+.jobly-nav {
+  background-color: rgba(34, 108, 192, 0.849);
+  margin-bottom: 10px;
+}
+
+.job {
+  background-color: rgba(25, 109, 204, 0.562);
 }

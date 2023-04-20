@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "reactstrap";
+import Dashboard from "./Dashboard";
+import AuthContext from "./AuthContext";
 
 const Home = () => {
-    return <Button>welcome!</Button>
+    const { user } = useContext(AuthContext)
+    return (
+        <>{user.username
+            ? <Dashboard />
+            :
+            <>
+                <h1 className="text-center">Please Log in or Sign up</h1>
+            </>
+        }
+        </>
+    )
 }
 export default Home;

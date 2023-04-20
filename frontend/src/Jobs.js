@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardBody, CardTitle, CardSubtitle, CardColumns, CardLink } from 'reactstrap';
+import React, { useState, useEffect, useContext } from 'react';
+import { Card, CardBody, CardTitle, CardSubtitle, CardText, Row } from 'reactstrap';
 import JoblyApi from './JoblyApi';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import AuthContext from './AuthContext';
 
-const Jobs = ({ user, setUser }) => {
+const Jobs = () => {
+    const { user } = useContext(AuthContext)
     const [jobs, setJobs] = useState([]);
     useEffect(() => {
         async function getJobs() {
@@ -14,25 +16,36 @@ const Jobs = ({ user, setUser }) => {
     }, []);
 
     return (
-        <>
-            <CardColumns style={{ width: '30rem', marginLeft: '20%' }}>
-                {jobs ? jobs.map(job => {
-                    return <Card key={job.id}>
-                        <CardBody>
-                            <CardTitle>
-                                <NavLink to={`jobs/${job.id}`}>
-                                    {job.title}
-                                </NavLink>
-                            </CardTitle>
-                            <CardSubtitle>{job.companyName}</CardSubtitle>
-                            <p>Salary: {job.salary}</p>
-                            <p>Equity: {job.equity || 'N/A'}</p>
-                        </CardBody>
-                    </Card>
-                }) : <h1>Loading...</h1>
-                }
-            </CardColumns>
-        </>
+        <Row>
+            <CardBody className='job m-2 ps-4 rounded'>
+                <CardTitle className='fs-4 fw-bold'>
+                    <span className='text-decoration-none'>All Jobs:</span>
+                </CardTitle>
+            </CardBody>
+            {jobs ? jobs.map(job => {
+                return (
+                    <CardBody key={job.id} className='job m-1 p-2 border border-secondary rounded'>
+                        <CardTitle className='ps-3 fw-bold fs-4'>
+                            <Link className='text-dark text-decoration-none' to={`/jobs/${job.id}`}>
+                                <span className='fs-5'>Title: </span>{job.title}
+                            </Link>
+                        </CardTitle>
+                        <CardText className='ps-3 fw-bold'>
+                            <Link className='text-dark text-decoration-none' to={`/companies/${job.companyHandle}`}>
+                                <span className='text-decoration-underline'>Company:</span> {job.companyName}
+                            </Link>
+                        </CardText>
+                        <CardText className='ps-3 fw-bold'>
+                            <span className='text-decoration-underline'>Salary:</span> {job.salary}
+                        </CardText>
+                        <CardText className='ps-3 fw-bold fs-6'>
+                            <span className='text-decoration-underline'>Equity:</span> {job.equity}
+                        </CardText>
+                    </CardBody>
+                )
+            }) : <h1>Loading...</h1>
+            }
+        </Row>
     );
 };
 

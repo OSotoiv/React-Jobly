@@ -25,10 +25,13 @@ CREATE TABLE jobs (
     REFERENCES companies ON DELETE CASCADE
 );
 
+CREATE TYPE application_status AS ENUM ('interested', 'applied', 'accepted', 'rejected');
+
 CREATE TABLE applications (
   username VARCHAR(25)
     REFERENCES users ON DELETE CASCADE,
   job_id INTEGER
     REFERENCES jobs ON DELETE CASCADE,
+  status application_status DEFAULT 'applied',
   PRIMARY KEY (username, job_id)
 );
