@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Card, CardBody, CardTitle, CardSubtitle, CardText, Row } from 'reactstrap';
+import React, { useState, useEffect } from 'react';
+import { CardBody, CardTitle, CardText, Row } from 'reactstrap';
 import JoblyApi from './JoblyApi';
 import { Link } from 'react-router-dom';
-import AuthContext from './AuthContext';
+// import AuthContext from './AuthContext';
 
 const Jobs = () => {
-    const { user } = useContext(AuthContext)
+    // const { user } = useContext(AuthContext)
     const [jobs, setJobs] = useState([]);
     useEffect(() => {
         async function getJobs() {

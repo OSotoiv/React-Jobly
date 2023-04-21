@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import AuthContext from "./AuthContext";
 import { Card, CardBody, CardTitle, CardSubtitle, CardText, } from 'reactstrap'
 import { Link } from "react-router-dom"
+import AdminDash from './AdminDash'
 
 const Dashboard = () => {
     const { user } = useContext(AuthContext)
@@ -31,10 +32,10 @@ const Dashboard = () => {
                     </Link>
                 </CardBody>
             </Card>
-            <CardTitle>Applications:</CardTitle>
+            <CardTitle>Current Applications:</CardTitle>
             {user.applications.map(app => {
                 return (
-                    <Card style={{ width: '50rem', marginBottom: '5px' }}>
+                    <Card key={app.id} style={{ width: '50rem', marginBottom: '5px' }}>
                         <CardBody>
                             <CardTitle>Title: {app.title}</CardTitle>
                             <CardSubtitle className="mb-2 text-muted">
@@ -44,13 +45,23 @@ const Dashboard = () => {
                             </CardSubtitle>
                             <CardSubtitle className="mb-2 text-muted">
                                 <Link className="mb-2 text-muted">
-                                    Status: {app.status}
+                                    {`Status: `}
+                                    <span className={
+                                        app.status === 'applied'
+                                            ? 'text-primary'
+                                            : app.status === 'accepted'
+                                                ? 'text-success'
+                                                : 'text-danger'
+                                    }>
+                                        {app.status}
+                                    </span>
                                 </Link>
                             </CardSubtitle>
                         </CardBody>
                     </Card>
                 )
             })}
+            {user.isAdmin ? <AdminDash /> : null}
         </div>
     )
 }

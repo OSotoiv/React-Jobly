@@ -13,15 +13,13 @@ import { NavLink } from 'react-router-dom';
 import AuthContext from "./AuthContext";
 
 function MainNav() {
-    const { user, setUser } = useContext(AuthContext)
+    const { user, logout } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggleUserMenu = () => setDropdownOpen(!dropdownOpen);
-    function logout() {
-        setUser({})
-    }
+
     return (
         <div>
             <Navbar className="jobly-nav" expand="md">

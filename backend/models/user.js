@@ -150,7 +150,7 @@ class User {
   static async get(username) {
     const userRes = await db.query(
       `SELECT users.username, users.first_name AS "firstName", users.last_name AS "lastName", users.email, is_admin AS "isAdmin",
-      json_agg(json_build_object('handle', jobs.company_handle, 'title', jobs.title, 'status', applications.status)) AS Applications
+      json_agg(json_build_object('id', jobs.id, 'handle', jobs.company_handle, 'title', jobs.title, 'status', applications.status)) AS Applications
       FROM users
       LEFT JOIN applications ON users.username = applications.username
       LEFT JOIN jobs ON applications.job_id = jobs.id
@@ -259,6 +259,19 @@ class User {
       `INSERT INTO applications (job_id, username)
            VALUES ($1, $2)`,
       [jobId, username]);
+  }
+  static async updateApplication(username, jobId, jobStatus) {
+    const res = await db.query(
+      `UPDATE applications
+       SET status = $1
+       WHERE username = $2
+       AND job_id = $3
+       RETURNING job_id`,
+      [jobStatus, username, jobId]);
+    if (res.rows[0]) {
+      console.log(res.rows[0])
+      return res.rows[0];
+    }
   }
 }
 

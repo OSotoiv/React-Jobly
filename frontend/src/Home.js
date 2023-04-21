@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Button } from "reactstrap";
 import Dashboard from "./Dashboard";
 import AuthContext from "./AuthContext";
 

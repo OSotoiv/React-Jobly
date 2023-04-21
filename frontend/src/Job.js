@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Card, CardBody, CardTitle, Col, Row, CardText, Button } from 'reactstrap';
+import { CardBody, CardTitle, Row, CardText, Button } from 'reactstrap';
 import JoblyApi from './JoblyApi';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import AuthContext from './AuthContext';
@@ -57,7 +57,7 @@ const Job = () => {
                     <div className='ps-3'>
                         {user.username
                             ? user.applicationIds.includes(job.id)
-                                ? <Button color='success'>Check your status</Button>
+                                ? <Button color='success'>Applied</Button>
                                 : <Button color='primary' onClick={() => apply(job.id)}>Apply</Button>
                             : <Button color='primary opacity-75' onClick={() => navigate('/login')}>Apply</Button>}
                     </div>

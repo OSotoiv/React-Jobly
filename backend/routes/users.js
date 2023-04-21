@@ -137,5 +137,10 @@ router.post("/:username/jobs/:id", ensureCorrectUserOrAdmin, async function (req
   }
 });
 
-
+router.patch("/:username/application", ensureAdmin, async function (req, res, next) {
+  const { username } = req.params;
+  const { jobId, jobStatus } = req.body;
+  const updated = await User.updateApplication(username, jobId, jobStatus)
+  return res.json({ updated })
+})
 module.exports = router;

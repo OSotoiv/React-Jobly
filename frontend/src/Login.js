@@ -1,12 +1,11 @@
 import React, { useState, useContext } from "react";
-import JoblyApi from './JoblyApi';
 import { Form, Row, Col, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from './AuthContext';
 
 const Login = () => {
     const navigate = useNavigate();
-    const { setUser } = useContext(AuthContext)
+    const { submitLogin } = useContext(AuthContext)
     const [inputState, setInputState] = useState({});
     function handleInputChange(e) {
         const { name, value } = e.target;
@@ -14,9 +13,8 @@ const Login = () => {
     }
     async function handleLogin(e) {
         e.preventDefault();
-        const JWT = await JoblyApi.login(inputState);
-        const user = await JoblyApi.getUser(inputState.username, JWT)
-        setUser(oldUser => { return { ...user, token: JWT } });
+        submitLogin(inputState)
+        //if all goes well navigae to home page that renders the users dashboard
         navigate('/')
     }
     return (
